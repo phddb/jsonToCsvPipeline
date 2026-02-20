@@ -14,9 +14,9 @@ A simple NestJS app with two routes for storing and retrieving JSON items.
    npm install
    ```
 
-2. Start a local PostgreSQL (e.g. Docker):
+2. Start a local PostgreSQL (e.g. Docker Compose):
    ```bash
-   docker run -d --name postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=items_db -p 5432:5432 postgres:16
+   docker compose up -d postgres
    ```
 
 3. Run the app:
