@@ -10,7 +10,12 @@ import { ItemService } from './item.service';
 
 @Controller('item')
 export class ItemController {
-  constructor(private readonly itemService: ItemService) {}
+  constructor(private readonly itemService: ItemService) { }
+
+  @Get()
+  async getAllItems() {
+    return this.itemService.findAll();
+  }
 
   @Get(':id')
   async getItem(@Param('id', ParseUUIDPipe) id: string) {

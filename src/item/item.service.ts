@@ -8,7 +8,13 @@ export class ItemService {
   constructor(
     @InjectRepository(Item)
     private readonly itemRepository: Repository<Item>,
-  ) {}
+  ) { }
+
+  async findAll(): Promise<Item[]> {
+    return this.itemRepository.find({
+      order: { createdAt: 'DESC' },
+    });
+  }
 
   async findOne(id: string): Promise<Item> {
     const item = await this.itemRepository.findOne({ where: { id } });
