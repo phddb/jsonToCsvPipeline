@@ -24,6 +24,7 @@ export class ItemController {
 
   @Post()
   async createItem(@Body() jsonItem: Record<string, unknown>) {
+    console.log('POST request received:', jsonItem);
     return this.itemService.create(jsonItem);
   }
 }
