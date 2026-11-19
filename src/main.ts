@@ -6,6 +6,7 @@ async function bootstrap() {
   app.enableCors({
     origin: process.env.CORS_ORIGINS?.split(',') || [],
     credentials: false,  // if you need cookies/auth headers
+    exposedHeaders: ['X-Total-Count'],
   });
   const port = process.env.PORT || 3000;
   await app.listen(port);

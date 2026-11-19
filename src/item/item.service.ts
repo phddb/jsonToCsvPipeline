@@ -10,9 +10,11 @@ export class ItemService {
     private readonly itemRepository: Repository<Item>,
   ) { }
 
-  async findAll(): Promise<Item[]> {
-    return this.itemRepository.find({
+  async findAll(page: number, perPage: number): Promise<[Item[], number]> {
+    return this.itemRepository.findAndCount({
       order: { createdAt: 'DESC' },
+      skip: (page - 1) * perPage,
+      take: perPage,
     });
   }
 

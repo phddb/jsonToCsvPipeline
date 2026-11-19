@@ -5,7 +5,10 @@ import {
   Param,
   Post,
   ParseUUIDPipe,
+  Query,
+  Res,
 } from '@nestjs/common';
+import type { Response } from 'express';
 import { ItemService } from './item.service';
 
 @Controller('item')
@@ -13,8 +16,17 @@ export class ItemController {
   constructor(private readonly itemService: ItemService) { }
 
   @Get()
-  async getAllItems() {
-    return this.itemService.findAll();
+  async getAllItems(
+    @Query('page') page = '1',
+    @Query('per_page') perPage = '20',
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const pageNum = Math.max(1, parseInt(page, 10) || 1);
+    const perPageNum = Math.min(100, Math.max(1, parseInt(perPage, 10) || 20));
+
+    const [items, total] = await this.itemService.findAll(pageNum, perPageNum);
+    res.setHeader('X-Total-Count', String(total));
+    return items;
   }
 
   @Get(':id')
