@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  Index,
 } from 'typeorm';
 
 @Entity('items')
@@ -14,6 +15,7 @@ export class Item {
   @Column({ type: 'jsonb', name: 'json_item' })
   jsonItem: Record<string, unknown>;
 
+  @Index()
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
