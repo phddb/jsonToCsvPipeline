@@ -18,12 +18,12 @@ export class ItemController {
 
   @Get()
   async getAllItems(
+    @Res({ passthrough: true }) res: Response,
     @Query('page') page = '1',
     @Query('per_page') perPage = '20',
     @Query('start') start?: string,
     @Query('end') end?: string,
     @Query('full') full?: string,
-    @Res({ passthrough: true }) res: Response,
   ) {
     const pageNum = Math.max(1, parseInt(page, 10) || 1);
     const perPageNum = Math.min(100, Math.max(1, parseInt(perPage, 10) || 20));
